@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/magicadri/TrabajoIps.svg?branch=master)](https://travis-ci.org/magicadri/TrabajoIps)
-# Proyecto IPS. Grupo 1 Lab2
+# Proyecto IPS. Grupo 5 Lab2
 
 ## Ciclo de desarrollo
 Los pasos de un ciclo normal de desarrollo son:
