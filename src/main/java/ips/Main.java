@@ -1,7 +1,7 @@
 package ips;
 
 /**
- * Created by nokutu on 26/09/16.
+ * Created by Codig0 on 26/09/16.
  */
 public class Main {
 
