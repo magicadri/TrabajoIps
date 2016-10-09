@@ -1,4 +1,4 @@
-package main.java.gui;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JMonthChooser;
+//import com.toedter.calendar.JCalendar;
+//import com.toedter.calendar.JMonthChooser;
 
 public class VentanaPrincipal extends JFrame {
 
