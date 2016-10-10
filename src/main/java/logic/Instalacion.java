@@ -50,4 +50,8 @@ public class Instalacion {
 		return resultado;
 	}
 
+	public ArrayList<Reserva> getReservas() {
+		return reservas;
+	}
+
 }

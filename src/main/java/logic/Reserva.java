@@ -8,6 +8,8 @@ public class Reserva {
 	private Date horaComienzo;
 	// Hora de final
 	private Date horaFinal;
+	// Dia de la reserva
+	private int dia;
 	// Administrador
 	private boolean admin;
 	// Socio
@@ -26,9 +28,10 @@ public class Reserva {
 	 * @param precio
 	 * @param instalacion
 	 */
-	public Reserva(Date horaComienzo, Date horaFinal, boolean admin, String socio, float precio,
+	public Reserva(int dia, Date horaComienzo, Date horaFinal, boolean admin, String socio, float precio,
 			Instalacion instalacion) {
 
+		this.dia = dia;
 		this.horaComienzo = horaComienzo;
 		this.horaFinal = horaFinal;
 		this.admin = admin;
@@ -54,5 +57,14 @@ public class Reserva {
 	 */
 	public Date getHoraFinal() {
 		return this.horaFinal;
+	}
+	
+	/**
+	 * Getter de dia
+	 * 
+	 * @return integer con el dia
+	 */
+	public int getDia(){
+		return this.dia;
 	}
 }
