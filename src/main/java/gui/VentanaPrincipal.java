@@ -74,6 +74,12 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtnAdmin() {
 		if (btnAdmin == null) {
 			btnAdmin = new JButton("Admin");
+			btnAdmin.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VentanaAdmin va = new VentanaAdmin();
+					va.setVisible(true);
+				}
+			});
 		}
 		return btnAdmin;
 	}

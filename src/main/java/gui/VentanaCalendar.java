@@ -58,7 +58,7 @@ public class VentanaCalendar extends JDialog {
 	private JTextField getTf() {
 		if (tf == null) {
 			tf = new JTextField();
-			tf.setBounds(76, 136, 86, 20);
+			tf.setBounds(31, 88, 86, 20);
 			tf.setColumns(10);
 		}
 		return tf;
