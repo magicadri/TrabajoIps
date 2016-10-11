@@ -12,7 +12,7 @@ public class Data {
 		Reserva pisc2 = new Reserva(13, new Date(2016, 10, 13, 18, 0), new Date(2016, 10, 13, 19, 0), true, "admin", 15, piscina);
 		Reserva pisc3 = new Reserva(13, new Date(2016, 10, 13, 21, 0), new Date(2016, 10, 13, 22, 0), true, "admin", 15, piscina);
 		Reserva pisc4 = new Reserva(15, new Date(2016, 10, 15, 9, 0), new Date(2016, 10, 15, 10, 0), true, "admin", 15, piscina);
-		
+
 		piscina.añadirReserva(pisc1);
 		piscina.añadirReserva(pisc2);
 		piscina.añadirReserva(pisc3);

@@ -100,16 +100,26 @@ public class VentanaCalendar extends JDialog {
 			chbPiscina = new JCheckBox("Piscina");
 			chbPiscina.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					// Habria que pasar todas las instalaciones a la clase y
-					// segun si están seleccionadas o no rellenar la tabla
+					//Si la piscina está seleccionada comprueba sus reservas para la tabla
 					if (chbPiscina.isSelected()) {
 						llenarTabla(data.getPiscina());
+					}else{
+						limpiarTabla();
 					}
 				}
 			});
 			chbPiscina.setBounds(29, 154, 97, 23);
 		}
 		return chbPiscina;
+	}
+	
+	/**
+	 * Limpia los valores de la tabla en la columna de las reservas
+	 */
+	private void limpiarTabla(){
+		for(int i=0; i<table.getRowCount(); i++){
+			table.setValueAt("", i, 1);
+		}
 	}
 
 	/**
@@ -120,13 +130,25 @@ public class VentanaCalendar extends JDialog {
 	 */
 	private void llenarTabla(Instalacion ins) {
 		ArrayList<Reserva> reservas = ins.getReservas();
-
-		for (Reserva reserva : reservas) {
-			int a = getDateChooser().getDate().getDay();
-			if (reserva.getHoraComienzo() != null && reserva.getDia() == a) {
-				DefaultTableModel m = (DefaultTableModel) table.getModel();
-				m.setValueAt("X", reserva.getHoraComienzo().getHours(), 1);
+	
+		//Fri Oct 07 11:45:19 CEST 2016
+		
+		for(Reserva reserva : reservas){
+			Date a = getDateChooser().getDate();
+			String dia = sacarDia(a);
+			if(String.valueOf(reserva.getDia()).equals(dia)){
+				table.setValueAt("Reserva Pisc", reserva.getHoraComienzo().getHours(), 1);
 			}
 		}
+	}
+	
+	/**
+	 * Saca el dia de un Date
+	 * @param date
+	 * @return String con el dia
+	 */
+	private String sacarDia(Date date){
+		String[] var = date.toString().split(" ");
+		return var[2];
 	}
 }
