@@ -5,10 +5,9 @@ public class Socio {
 	private String socioID;
 	private float cuota;
 	
-	public Socio(String socioID, float cuota)
+	public Socio(String socioID)
 	{
 		this.socioID=socioID;
-		this.cuota=cuota;
 	}
 
 	public String getSocioID() {

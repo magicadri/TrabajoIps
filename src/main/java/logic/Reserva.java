@@ -11,9 +11,9 @@ public class Reserva {
 	// Dia de la reserva
 	private int dia;
 	// Administrador
-	private boolean admin;
+	private boolean admin=false;
 	// Socio
-	private String socio;
+	private Socio socio;
 	// Precio
 	float precio;
 	// Instalacion que se reserva
@@ -28,15 +28,17 @@ public class Reserva {
 	 * @param precio
 	 * @param instalacion
 	 */
-	public Reserva(int dia, Date horaComienzo, Date horaFinal, boolean admin, String socio, float precio,
+	public Reserva(int dia, Date horaComienzo, Date horaFinal, Socio socio, float precio,
 			Instalacion instalacion) {
 
 		this.dia = dia;
 		this.horaComienzo = horaComienzo;
 		this.horaFinal = horaFinal;
-		this.admin = admin;
+		if(socio.getSocioID().equals("admin"))
+			this.admin = true;
 		this.socio = socio;
 		this.precio = precio;
+		this.socio.setCuota(socio.getCuota()+precio);
 		this.instalacion = instalacion;
 
 	}

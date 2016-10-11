@@ -1,10 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
@@ -85,6 +87,7 @@ public class VentanaCalendar extends JDialog {
 							{ "20:00", null }, { "21:00", null }, { "22:00", null }, { "23:00", null }, },
 					new String[] { "Horas", "Disponibilidad" }));
 			table.setBounds(175, 11, 248, 384);
+			table.getCellRenderer(1, 1).getTableCellRendererComponent(table, table.getModel().getValueAt(1, 1), true, false, 1, 1).setBackground(Color.GREEN);
 			data.meterDatos();
 		}
 		return table;
@@ -102,7 +105,8 @@ public class VentanaCalendar extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					//Si la piscina está seleccionada comprueba sus reservas para la tabla
 					if (chbPiscina.isSelected()) {
-						llenarTabla(data.getPiscina());
+						if(dateChooser.getDate()!=null)
+							llenarTabla(data.getPiscina());
 					}else{
 						limpiarTabla();
 					}
@@ -138,6 +142,7 @@ public class VentanaCalendar extends JDialog {
 			String dia = sacarDia(a);
 			if(String.valueOf(reserva.getDia()).equals(dia)){
 				table.setValueAt("Reserva Pisc", reserva.getHoraComienzo().getHours(), 1);
+				
 			}
 		}
 	}
@@ -151,4 +156,6 @@ public class VentanaCalendar extends JDialog {
 		String[] var = date.toString().split(" ");
 		return var[2];
 	}
+
+	
 }
