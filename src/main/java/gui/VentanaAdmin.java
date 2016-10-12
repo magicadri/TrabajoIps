@@ -94,6 +94,7 @@ public class VentanaAdmin extends JFrame {
 			btnCalendar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					VentanaCalendar vc = new VentanaCalendar();
+					
 					vc.setVisible(true);
 				}
 			});

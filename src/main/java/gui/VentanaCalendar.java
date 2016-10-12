@@ -18,6 +18,7 @@ import logic.Reserva;
 import logic.Socio;
 
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,6 +71,8 @@ public class VentanaCalendar extends JDialog {
 		contentPanel.add(getChbPiscina());
 		contentPanel.add(getChbTenis());
 		contentPanel.add(getChbFutbol());
+		//Pone el dia actual en el dateChooser
+		dateChooser.setDate((new Date()));
 	}
 
 	private JDateChooser getDateChooser() {
@@ -80,7 +83,15 @@ public class VentanaCalendar extends JDialog {
 					
 					limpiarTabla();
 					//Actualizar el horario para cada dia cambiado
-					
+					if(chbPiscina.isSelected()){
+						llenarTabla(data.getPiscina());
+					}
+					if(chbTenis.isSelected()){
+						llenarTabla(data.getTenis());
+					}
+					if(chbFutbol.isSelected()){
+						llenarTabla(data.getFutbol());
+					}
 					
 					/*
 					chbPiscina.setSelected(false);
@@ -98,6 +109,7 @@ public class VentanaCalendar extends JDialog {
 		if (table == null) {
 			table = new JTable();
 			table.setBounds(175, 11, 248, 384);
+			
 			DataTableModel dm = new DataTableModel(new Object[][] { { "00:00", null }, { "01:00", null }, { "02:00", null }, { "03:00", null },
 							{ "04:00", null }, { "05:00", null }, { "06:00", null }, { "07:00", null },
 							{ "08:00", null }, { "09:00", null }, { "10:00", null }, { "11:00", null },
@@ -106,6 +118,8 @@ public class VentanaCalendar extends JDialog {
 							{ "20:00", null }, { "21:00", null }, { "22:00", null }, { "23:00", null }, },
 					new String[] { "Horas", "Disponibilidad" });
 			table.setModel(dm);
+			//No editable
+			table.setEnabled(false);
 			data.meterDatos();
 		}
 		return table;
