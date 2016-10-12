@@ -4,19 +4,30 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Instalacion {
-	
+
 	// ID de la instalacion
 	private String id;
-	
+
 	// Lista de reservas para la instalacion
 	private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 
 	/**
 	 * Constructor de la clase Instalacion
-	 * @param id, ID de la instalacion
+	 * 
+	 * @param id,
+	 *            ID de la instalacion
 	 */
 	public Instalacion(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * Getter para el ID de la instalacion
+	 * 
+	 * @return String con el id
+	 */
+	public String getId() {
+		return this.id;
 	}
 
 	/**
@@ -42,7 +53,7 @@ public class Instalacion {
 		boolean resultado = true;
 
 		for (Reserva reserva : reservas) {
-			if(reserva.getHoraComienzo().equals(horaC) && reserva.getHoraFinal().equals(horaF)){
+			if (reserva.getHoraComienzo().equals(horaC) && reserva.getHoraFinal().equals(horaF)) {
 				resultado = false;
 			}
 		}
