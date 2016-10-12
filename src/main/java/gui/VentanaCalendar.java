@@ -38,6 +38,9 @@ public class VentanaCalendar extends JDialog {
 	private JTable table;
 	private JCheckBox chbPiscina;
 	Data data = new Data();
+	private JCheckBox chbTenis;
+	private JCheckBox chbFutbol;
+	
 	
 
 	/**
@@ -65,11 +68,27 @@ public class VentanaCalendar extends JDialog {
 		contentPanel.add(getDateChooser());
 		contentPanel.add(getTable());
 		contentPanel.add(getChbPiscina());
+		contentPanel.add(getChbTenis());
+		contentPanel.add(getChbFutbol());
 	}
 
 	private JDateChooser getDateChooser() {
 		if (dateChooser == null) {
 			dateChooser = new JDateChooser();
+			dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
+					
+					limpiarTabla();
+					//Actualizar el horario para cada dia cambiado
+					
+					
+					/*
+					chbPiscina.setSelected(false);
+					chbTenis.setSelected(false);
+					chbFutbol.setSelected(false);
+					*/
+				}
+			});
 			dateChooser.setBounds(44, 30, 95, 20);
 		}
 		return dateChooser;
@@ -140,6 +159,7 @@ public class VentanaCalendar extends JDialog {
 			Date a = getDateChooser().getDate();
 			String dia = sacarDia(a);
 			if(String.valueOf(reserva.getDia()).equals(dia)){
+				//If para saber Reserva Pisc, tenis y futbol
 				table.setValueAt("Reserva Pisc", reserva.getHoraComienzo().getHours(), 1);
 				
 			}
@@ -155,6 +175,40 @@ public class VentanaCalendar extends JDialog {
 		String[] var = date.toString().split(" ");
 		return var[2];
 	}
-
-	
+	private JCheckBox getChbTenis() {
+		if (chbTenis == null) {
+			chbTenis = new JCheckBox("Cancha de tenis");
+			chbTenis.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					//Si la cancha de tenis está seleccionada comprueba sus reservas para la tabla
+					if (chbTenis.isSelected()) {
+						if(dateChooser.getDate()!=null)
+							llenarTabla(data.getTenis());
+					}else{
+						limpiarTabla();
+					}
+				}
+			});
+			chbTenis.setBounds(29, 194, 123, 23);
+		}
+		return chbTenis;
+	}
+	private JCheckBox getChbFutbol() {
+		if (chbFutbol == null) {
+			chbFutbol = new JCheckBox("Cancha de futbol");
+			chbFutbol.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//Si la cancha de futbol está seleccionada comprueba sus reservas para la tabla
+					if (chbFutbol.isSelected()) {
+						if(dateChooser.getDate()!=null)
+							llenarTabla(data.getFutbol());
+					}else{
+						limpiarTabla();
+					}
+				}
+			});
+			chbFutbol.setBounds(29, 231, 123, 23);
+		}
+		return chbFutbol;
+	}
 }

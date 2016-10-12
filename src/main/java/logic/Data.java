@@ -20,10 +20,32 @@ public class Data {
 		piscina.añadirReserva(pisc2);
 		piscina.añadirReserva(pisc3);
 		piscina.añadirReserva(pisc4);
+		
+		
+		Reserva tenis1 = new Reserva(11, new Date(2016, 10, 11, 20, 0), new Date(2016, 10, 11, 21, 0), socio1, 15, canchatenis);
+		Reserva tenis2 = new Reserva(13, new Date(2016, 10, 13, 20, 0), new Date(2016, 10, 13, 21, 0), socio1, 15, canchatenis);
+		Reserva tenis3 = new Reserva(13, new Date(2016, 10, 13, 23, 0), new Date(2016, 10, 13, 24, 0), pepe, 15, canchatenis);
+		Reserva tenis4 = new Reserva(15, new Date(2016, 10, 15, 13, 0), new Date(2016, 10, 15, 14, 0), pepe, 15, canchatenis);
+
+		canchatenis.añadirReserva(tenis1);
+		canchatenis.añadirReserva(tenis2);
+		canchatenis.añadirReserva(tenis3);
+		canchatenis.añadirReserva(tenis4);
 	}
 	
 	public Instalacion getPiscina(){
 		return piscina;
 	}
 	
-}
+	public Instalacion getTenis(){
+		return canchatenis;
+	}
+	
+	public Instalacion getFutbol(){
+		return canchafutbol;
+	}
+	
+	
+	}
+	
+
