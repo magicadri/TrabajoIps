@@ -79,7 +79,6 @@ public class VentanaCalendar extends JDialog {
 			dateChooser = new JDateChooser();
 			dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
-
 					limpiarTabla();
 					// Actualizar el horario para cada dia cambiado
 					if (chbPiscina.isSelected()) {
@@ -133,7 +132,7 @@ public class VentanaCalendar extends JDialog {
 						if (dateChooser.getDate() != null)
 							llenarTabla(data.getPiscina());
 					} else {
-						limpiarTabla();
+						limpiarReserva("Reserva Piscina");
 					}
 				}
 			});
@@ -147,7 +146,17 @@ public class VentanaCalendar extends JDialog {
 	 */
 	private void limpiarTabla() {
 		for (int i = 0; i < table.getRowCount(); i++) {
-			table.setValueAt("", i, 1);
+					table.setValueAt("", i, 1);
+		}
+	}
+	
+	/**
+	 * Limpia los valores de la tabla para una reserva en particular
+	 */
+	private void limpiarReserva(String inst) {
+		for (int i = 0; i < table.getRowCount(); i++) {
+			if(table.getValueAt(i, 1).equals(inst))
+					table.setValueAt("", i, 1);
 		}
 	}
 
@@ -212,7 +221,7 @@ public class VentanaCalendar extends JDialog {
 						if (dateChooser.getDate() != null)
 							llenarTabla(data.getTenis());
 					} else {
-						limpiarTabla();
+						limpiarReserva("Reserva Tenis");
 					}
 				}
 			});
@@ -230,7 +239,7 @@ public class VentanaCalendar extends JDialog {
 						if (dateChooser.getDate() != null)
 							llenarTabla(data.getFutbol());
 					} else {
-						limpiarTabla();
+						limpiarReserva("Reserva Futbol");
 					}
 				}
 			});
