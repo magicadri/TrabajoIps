@@ -101,6 +101,12 @@ public class VentanaSocio extends JFrame {
 	private JButton getBtnReserva() {
 		if (btnReserva == null) {
 			btnReserva = new JButton("Reservar instalaciones");
+			btnReserva.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VentanaReserva vr = new VentanaReserva();
+					vr.setVisible(true);
+				}
+			});
 		}
 		return btnReserva;
 	}

@@ -31,6 +31,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class VentanaCalendar extends JDialog {
 
@@ -42,6 +43,8 @@ public class VentanaCalendar extends JDialog {
 	Data data = new Data();
 	private JCheckBox chbTenis;
 	private JCheckBox chbFutbol;
+	private JTextPane txPDescripcion;
+	private JLabel lblDescripcion;
 
 	/**
 	 * Launch the application.
@@ -60,7 +63,7 @@ public class VentanaCalendar extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaCalendar() {
-		setBounds(100, 100, 477, 469);
+		setBounds(100, 100, 887, 470);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -72,6 +75,8 @@ public class VentanaCalendar extends JDialog {
 		contentPanel.add(getChbFutbol());
 		// Pone el dia actual en el dateChooser
 		dateChooser.setDate((new Date()));
+		contentPanel.add(getTxPDescripcion());
+		contentPanel.add(getLblDescripcion());
 	}
 
 	private JDateChooser getDateChooser() {
@@ -246,5 +251,19 @@ public class VentanaCalendar extends JDialog {
 			chbFutbol.setBounds(29, 231, 123, 23);
 		}
 		return chbFutbol;
+	}
+	private JTextPane getTxPDescripcion() {
+		if (txPDescripcion == null) {
+			txPDescripcion = new JTextPane();
+			txPDescripcion.setBounds(492, 77, 338, 306);
+		}
+		return txPDescripcion;
+	}
+	private JLabel getLblDescripcion() {
+		if (lblDescripcion == null) {
+			lblDescripcion = new JLabel("Descripcion:");
+			lblDescripcion.setBounds(494, 30, 130, 30);
+		}
+		return lblDescripcion;
 	}
 }
