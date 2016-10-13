@@ -36,7 +36,7 @@ public class Instalacion {
 	 * @param res,
 	 *            reserva a ser añadida
 	 */
-	public void añadirReserva(Reserva res) {
+	public void addReserva(Reserva res) {
 		reservas.add(res);
 	}
 

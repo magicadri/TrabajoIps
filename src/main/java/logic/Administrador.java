@@ -15,7 +15,7 @@ public class Administrador {
 	 * @param ins, Intalacion a mirar
 	 * @param horaC, hora de comiezo
 	 * @param horaF, hora final
-	 * @return true si está ocupada, false si no
+	 * @return true si esta ocupada, false si no
 	 */
 	public boolean instalacionOcupada(Instalacion ins, Date horaC, Date horaF){
 		

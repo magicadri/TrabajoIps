@@ -20,7 +20,7 @@ public class Database {
             throw new RuntimeException(e.getMessage(), e);
         }
         
-        //Operaciones aquí
+        //Operaciones aqui
         
         try {
             c.close();
