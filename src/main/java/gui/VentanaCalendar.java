@@ -9,6 +9,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import com.toedter.calendar.JDateChooser;
 
 import logic.Administrador;
@@ -116,8 +119,21 @@ public class VentanaCalendar extends JDialog {
 							{ "20:00", null }, { "21:00", null }, { "22:00", null }, { "23:00", null }, },
 					new String[] { "Horas", "Disponibilidad" });
 			table.setModel(dm);
-			// No editable
-			table.setEnabled(false);
+			
+			//Listener para tomar los valores de las filas de la tabla
+			table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+				@Override
+				public void valueChanged(ListSelectionEvent ev) {
+					//Pone en la descripcion el valor de la columna fila/columna
+					txPDescripcion.setText((String) table.getModel().getValueAt(1,table.getSelectedColumn())+" "+table.getModel().getValueAt(table.getSelectedRow(), 1));
+				}
+				
+				//No editable NO FUNCIONA DE MOMENTO
+				public boolean isCellEditable(int row, int column){
+						return false;
+				}
+				
+			});			
 			data.meterDatos();
 		}
 		return table;
