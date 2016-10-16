@@ -21,6 +21,7 @@ public class VentanaSocio extends JFrame {
 	private JLabel lblOpciones;
 	private JButton btnCalendar;
 	private JButton btnReserva;
+	private JButton btnConsulta;
 
 	/**
 	 * Launch the application.
@@ -49,9 +50,9 @@ public class VentanaSocio extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		GridBagConstraints gbc_lblBienvenido = new GridBagConstraints();
 		gbc_lblBienvenido.insets = new Insets(0, 0, 5, 0);
@@ -69,9 +70,14 @@ public class VentanaSocio extends JFrame {
 		gbc_btnCalendar.gridy = 3;
 		contentPane.add(getBtnCalendar(), gbc_btnCalendar);
 		GridBagConstraints gbc_btnReserva = new GridBagConstraints();
+		gbc_btnReserva.insets = new Insets(0, 0, 5, 0);
 		gbc_btnReserva.gridx = 2;
 		gbc_btnReserva.gridy = 5;
 		contentPane.add(getBtnReserva(), gbc_btnReserva);
+		GridBagConstraints gbc_btnConsulta = new GridBagConstraints();
+		gbc_btnConsulta.gridx = 2;
+		gbc_btnConsulta.gridy = 7;
+		contentPane.add(getBtnConsulta(), gbc_btnConsulta);
 	}
 
 	private JLabel getLblBienvenido() {
@@ -109,5 +115,17 @@ public class VentanaSocio extends JFrame {
 			});
 		}
 		return btnReserva;
+	}
+	private JButton getBtnConsulta() {
+		if (btnConsulta == null) {
+			btnConsulta = new JButton("Consultar Reservas");
+			btnConsulta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VentanaConsulta vc = new VentanaConsulta();
+					vc.setVisible(true);
+				}
+			});
+		}
+		return btnConsulta;
 	}
 }

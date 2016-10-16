@@ -15,6 +15,7 @@ public class Data {
 	Socio socio1 = new Socio("admin");
 	Socio pepe = new Socio("pepe");
 
+
 	public void meterDatos() {
 		Reserva pisc1 = new Reserva(11, new Date(2016, 10, 11, 16, 0), new Date(2016, 10, 11, 17, 0), socio1, 15, piscina);
 		Reserva pisc2 = new Reserva(13, new Date(2016, 10, 13, 18, 0), new Date(2016, 10, 13, 19, 0), socio1, 15, piscina);
@@ -57,6 +58,14 @@ public class Data {
 
 	public Instalacion getFutbol() {
 		return canchafutbol;
+	}
+
+	public Socio getSocio1() {
+		return socio1;
+	}
+
+	public Socio getPepe() {
+		return pepe;
 	}
 
 }

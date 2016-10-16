@@ -40,6 +40,7 @@ public class Reserva {
 		this.precio = precio;
 		this.socio.setCuota(socio.getCuota()+precio);
 		this.instalacion = instalacion;
+		socio.getRecibos().add(new Recibo(precio,socio,instalacion));
 
 	}
 
