@@ -1,8 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -13,7 +11,6 @@ import logic.Instalacion;
 import logic.Reserva;
 import logic.Socio;
 
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -28,27 +25,32 @@ import javax.swing.DefaultComboBoxModel;
 
 public class VentanaReservaA extends JDialog {
 
+	private static final long serialVersionUID = -6560570937552932289L;
+	
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblIdDeSocio;
-	private JTextField txIDAdmin;
+	private JTextField txIDdeSocio;
 	private JSpinner spDia;
 	private JLabel lblDia;
-	private JComboBox cbHoraComienzo;
+	private JComboBox<String> cbHoraComienzo;
 	private JLabel lblHoraDeComienzo;
 	private JLabel lblHoraFin;
-	private JComboBox cbHoraFin;
+	private JComboBox<String> cbHoraFin;
 	private JCheckBox chckbxPiscina;
 	private JCheckBox chckbxCanchaDeFutbol;
 	private JCheckBox chckbxCanchaDeTenis;
+	private JLabel lblMes;
+	private JComboBox<String> cbMes;
 	private Data data;
-	private JButton btnComprobar;
+	private JCheckBox chckbxCuota;
+	private JCheckBox chckbxPagarAlContado;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			VentanaReservaA dialog = new VentanaReservaA();
+			VentanaReservaS dialog = new VentanaReservaS();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -76,7 +78,13 @@ public class VentanaReservaA extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						crearNuevaReserva();
+						boolean comprobacion = comprobarFecha();
+						if(comprobacion){
+							crearNuevaReserva();
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Ha habido un error guardando su reserva");
+						}
 						dispose();
 					}
 				});
@@ -94,7 +102,7 @@ public class VentanaReservaA extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		contentPanel.add(getTxIDAdmin());
+		contentPanel.add(getTxIDdeSocio());
 		contentPanel.add(getSpDia());
 		contentPanel.add(getLblDia());
 		contentPanel.add(getCbHoraComienzo());
@@ -104,26 +112,29 @@ public class VentanaReservaA extends JDialog {
 		contentPanel.add(getChckbxPiscina());
 		contentPanel.add(getChckbxCanchaDeFutbol());
 		contentPanel.add(getChckbxCanchaDeTenis());
-		contentPanel.add(getBtnComprobar());
+		contentPanel.add(getLblMes());
+		contentPanel.add(getCbMes());
+		contentPanel.add(getChckbxCuota());
+		contentPanel.add(getChckbxPagarAlContado());
 	}
 
 	private JLabel getLblIdDeSocio() {
 		if (lblIdDeSocio == null) {
-			lblIdDeSocio = new JLabel("ID de admin:");
+			lblIdDeSocio = new JLabel("ID de socio:");
 			lblIdDeSocio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			lblIdDeSocio.setBounds(63, 102, 142, 42);
 		}
 		return lblIdDeSocio;
 	}
 
-	private JTextField getTxIDAdmin() {
-		if (txIDAdmin == null) {
-			txIDAdmin = new JTextField();
-			txIDAdmin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			txIDAdmin.setBounds(205, 106, 196, 34);
-			txIDAdmin.setColumns(10);
+	private JTextField getTxIDdeSocio() {
+		if (txIDdeSocio == null) {
+			txIDdeSocio = new JTextField();
+			txIDdeSocio.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txIDdeSocio.setBounds(205, 106, 196, 34);
+			txIDdeSocio.setColumns(10);
 		}
-		return txIDAdmin;
+		return txIDdeSocio;
 	}
 
 	private JSpinner getSpDia() {
@@ -144,11 +155,14 @@ public class VentanaReservaA extends JDialog {
 		return lblDia;
 	}
 
-	private JComboBox getCbHoraComienzo() {
+	private JComboBox<String> getCbHoraComienzo() {
 		if (cbHoraComienzo == null) {
-			cbHoraComienzo = new JComboBox();
-			cbHoraComienzo.setModel(new DefaultComboBoxModel(new String[] {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"}));
-			cbHoraComienzo.setMaximumRowCount(24);
+			String[] horas = new String[24];
+			for (int i=0;i<24;i++){
+				horas[i] = String.valueOf(i) + ":00";
+			}
+			cbHoraComienzo = new JComboBox<String>();
+			cbHoraComienzo.setModel(new DefaultComboBoxModel<String>(horas));
 			cbHoraComienzo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			cbHoraComienzo.setBounds(704, 282, 214, 30);
 		}
@@ -166,18 +180,21 @@ public class VentanaReservaA extends JDialog {
 
 	private JLabel getLblHoraFin() {
 		if (lblHoraFin == null) {
-			lblHoraFin = new JLabel("Hora final:");
+			lblHoraFin = new JLabel("Duracion:");
 			lblHoraFin.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			lblHoraFin.setBounds(511, 360, 178, 34);
 		}
 		return lblHoraFin;
 	}
 
-	private JComboBox getCbHoraFin() {
+	private JComboBox<String> getCbHoraFin() {
 		if (cbHoraFin == null) {
-			cbHoraFin = new JComboBox();
-			cbHoraFin.setModel(new DefaultComboBoxModel(new String[] {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"}));
-			cbHoraFin.setMaximumRowCount(24);
+			String[] horas = new String[24];
+			for (int i=0;i<24;i++){
+				horas[i] = String.valueOf(i) + ":00";
+			}
+			cbHoraFin = new JComboBox<String>();
+			cbHoraFin.setModel(new DefaultComboBoxModel<String>(horas));
 			cbHoraFin.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			cbHoraFin.setBounds(704, 362, 214, 30);
 		}
@@ -222,29 +239,57 @@ public class VentanaReservaA extends JDialog {
 		//Cuando sea por base de datos se incluira en ella la reserva en su correspondiente instalacion.
 		if (getChckbxCanchaDeFutbol().isSelected()) {
 			Reserva newResFut = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
-					new Socio(getTxIDAdmin().getText()), preciofutbol, new Instalacion("canchafutbol"));
+					new Socio(getTxIDdeSocio().getText()), preciofutbol, new Instalacion("canchafutbol"));
 		} else if (getChckbxCanchaDeTenis().isSelected()) {
 			Reserva newResTen = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
-					new Socio(getTxIDAdmin().getText()), preciotenis, new Instalacion("canchatenis"));
+					new Socio(getTxIDdeSocio().getText()), preciotenis, new Instalacion("canchatenis"));
 		} else if (getChckbxPiscina().isSelected()) {
 			Reserva newResPis = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
-					new Socio(getTxIDAdmin().getText()), preciopiscina, new Instalacion("piscina"));
+					new Socio(getTxIDdeSocio().getText()), preciopiscina, new Instalacion("piscina"));
 		}
 	}
-	private JButton getBtnComprobar() {
-		if (btnComprobar == null) {
-			btnComprobar = new JButton("Comprobar");
-			btnComprobar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String ID = txIDAdmin.getText();
-					//If ID == alguna id en la bbdd de admins
-					JOptionPane.showMessageDialog(null,"Comprobación exitosa.");
-					//else
-					//JOptionPane.showMessageDialog(null, "Error. No existe ese usuario.", "Error", ERROR);
-				}
-			});
-			btnComprobar.setBounds(423, 104, 142, 34);
+	
+	/**
+	 * Comprueba que los datos introducidos son correctos
+	 */
+	private boolean comprobarFecha(){
+		Date date = new Date(0);
+		if(getCbHoraFin().getSelectedIndex() - getCbHoraComienzo().getSelectedIndex() > 2 || getCbHoraFin().getSelectedIndex() - getCbHoraComienzo().getSelectedIndex() < 0){
+			return false;
+		}else if((Integer)getSpDia().getValue() - date.getDay() > 15 || (Integer)getSpDia().getValue() - date.getDay() < 0){
+			return false;
 		}
-		return btnComprobar;
+		return true;
+	}
+	
+	private JLabel getLblMes() {
+		if (lblMes == null) {
+			lblMes = new JLabel("Mes:");
+			lblMes.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblMes.setBounds(704, 204, 81, 26);
+		}
+		return lblMes;
+	}
+	private JComboBox<String> getCbMes() {
+		if (cbMes == null) {
+			cbMes = new JComboBox<String>();
+			cbMes.setModel(new DefaultComboBoxModel<String>(new String[] {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}));
+			cbMes.setBounds(768, 205, 178, 26);
+		}
+		return cbMes;
+	}
+	private JCheckBox getChckbxCuota() {
+		if (chckbxCuota == null) {
+			chckbxCuota = new JCheckBox("A\u00F1adir pago en cuota");
+			chckbxCuota.setBounds(511, 474, 352, 34);
+		}
+		return chckbxCuota;
+	}
+	private JCheckBox getChckbxPagarAlContado() {
+		if (chckbxPagarAlContado == null) {
+			chckbxPagarAlContado = new JCheckBox("Pagar al contado");
+			chckbxPagarAlContado.setBounds(511, 540, 320, 34);
+		}
+		return chckbxPagarAlContado;
 	}
 }
