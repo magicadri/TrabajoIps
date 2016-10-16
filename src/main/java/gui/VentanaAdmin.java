@@ -93,9 +93,9 @@ public class VentanaAdmin extends JFrame {
 			btnCalendar = new JButton("Consultar disponibilidad");
 			btnCalendar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					VentanaCalendar vc = new VentanaCalendar();
+					VentanaCalendarAdmin vcA = new VentanaCalendarAdmin();
 					
-					vc.setVisible(true);
+					vcA.setVisible(true);
 				}
 			});
 		}
@@ -104,6 +104,13 @@ public class VentanaAdmin extends JFrame {
 	private JButton getBtnReserva() {
 		if (btnReserva == null) {
 			btnReserva = new JButton("Reservar instalaciones");
+			btnReserva.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VentanaReservaA VRA = new VentanaReservaA();
+					VRA.setVisible(true);
+					
+				}
+			});
 		}
 		return btnReserva;
 	}

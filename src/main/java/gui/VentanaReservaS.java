@@ -24,7 +24,7 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.awt.event.ActionEvent;
 
-public class VentanaReserva extends JDialog {
+public class VentanaReservaS extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblIdDeSocio;
@@ -45,7 +45,7 @@ public class VentanaReserva extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			VentanaReserva dialog = new VentanaReserva();
+			VentanaReservaS dialog = new VentanaReservaS();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class VentanaReserva extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaReserva() {
+	public VentanaReservaS() {
 		data = new Data();
 		setBounds(100, 100, 1055, 788);
 		getContentPane().setLayout(new BorderLayout());

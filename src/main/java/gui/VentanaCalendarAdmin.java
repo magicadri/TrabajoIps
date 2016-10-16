@@ -38,7 +38,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 
-public class VentanaCalendar extends JDialog {
+public class VentanaCalendarAdmin extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JDateChooser dateChooser;
@@ -52,13 +52,14 @@ public class VentanaCalendar extends JDialog {
 	private JLabel lblDescripcion;
 	private JLabel lblHora;
 	private JLabel lbHora;
+	private JButton btnHora;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			VentanaCalendar dialog = new VentanaCalendar();
+			VentanaCalendarAdmin dialog = new VentanaCalendarAdmin();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -69,7 +70,7 @@ public class VentanaCalendar extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaCalendar() {
+	public VentanaCalendarAdmin() {
 		setBounds(100, 100, 887, 470);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,6 +87,7 @@ public class VentanaCalendar extends JDialog {
 		contentPanel.add(getLblDescripcion());
 		contentPanel.add(getLblHora());
 		contentPanel.add(getLbHora());
+		contentPanel.add(getBtnHora());
 	}
 
 	private JDateChooser getDateChooser() {
@@ -302,5 +304,21 @@ public class VentanaCalendar extends JDialog {
 			lbHora.setText(String.valueOf(LocalDateTime.now().getHour())+":"+String.valueOf(LocalDateTime.now().getMinute()));
 		}
 		return lbHora;
+	}
+	private JButton getBtnHora() {
+		if (btnHora == null) {
+			btnHora = new JButton("Llegada/Salida");
+			btnHora.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String ID = JOptionPane.showInputDialog("Introduce tu ID de Admin:");
+					//If ID == ADmin en la bbdd
+					VentanaLlegadaS VLLS = new VentanaLlegadaS();
+					VLLS.setVisible(true);
+					//else mensaje de error
+				}
+			});
+			btnHora.setBounds(453, 177, 156, 23);
+		}
+		return btnHora;
 	}
 }
