@@ -22,6 +22,7 @@ public class VentanaSocio extends JFrame {
 	private JButton btnCalendar;
 	private JButton btnReserva;
 	private JButton btnConsulta;
+	private JButton btnCancelarReserva;
 
 	/**
 	 * Launch the application.
@@ -44,15 +45,15 @@ public class VentanaSocio extends JFrame {
 	 */
 	public VentanaSocio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 548, 402);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		GridBagConstraints gbc_lblBienvenido = new GridBagConstraints();
 		gbc_lblBienvenido.insets = new Insets(0, 0, 5, 0);
@@ -75,9 +76,14 @@ public class VentanaSocio extends JFrame {
 		gbc_btnReserva.gridy = 5;
 		contentPane.add(getBtnReserva(), gbc_btnReserva);
 		GridBagConstraints gbc_btnConsulta = new GridBagConstraints();
+		gbc_btnConsulta.insets = new Insets(0, 0, 5, 0);
 		gbc_btnConsulta.gridx = 2;
 		gbc_btnConsulta.gridy = 7;
 		contentPane.add(getBtnConsulta(), gbc_btnConsulta);
+		GridBagConstraints gbc_btnCancelarReserva = new GridBagConstraints();
+		gbc_btnCancelarReserva.gridx = 2;
+		gbc_btnCancelarReserva.gridy = 9;
+		contentPane.add(getBtnCancelarReserva(), gbc_btnCancelarReserva);
 	}
 
 	private JLabel getLblBienvenido() {
@@ -127,5 +133,17 @@ public class VentanaSocio extends JFrame {
 			});
 		}
 		return btnConsulta;
+	}
+	private JButton getBtnCancelarReserva() {
+		if (btnCancelarReserva == null) {
+			btnCancelarReserva = new JButton("Cancelar reserva");
+			btnCancelarReserva.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VentanaCancelarReserva vcr = new VentanaCancelarReserva();
+					vcr.setVisible(true);
+				}
+			});
+		}
+		return btnCancelarReserva;
 	}
 }

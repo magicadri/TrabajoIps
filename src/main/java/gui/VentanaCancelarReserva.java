@@ -73,7 +73,7 @@ public class VentanaCancelarReserva extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						crearNuevaReserva();
+						eliminarReserva();
 						dispose();
 					}
 				});
@@ -204,9 +204,9 @@ public class VentanaCancelarReserva extends JDialog {
 	}
 
 	/**
-	 * Crea una nueva reserva cuando el usuario pulsa OK
+	 * Elimina la reserva del usuario que coincida con los datos dados
 	 */
-	private void crearNuevaReserva() {
+	private void eliminarReserva() {
 		float preciofutbol = 2;
 		float preciotenis = 1;
 		float preciopiscina = 5;
