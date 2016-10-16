@@ -37,6 +37,7 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.swing.JList;
 
 public class VentanaCalendarAdmin extends JDialog {
 
@@ -52,7 +53,8 @@ public class VentanaCalendarAdmin extends JDialog {
 	private JLabel lblDescripcion;
 	private JLabel lblHora;
 	private JLabel lbHora;
-	private JButton btnHora;
+	private JButton btnLlegada;
+	private JButton btnSalida;
 
 	/**
 	 * Launch the application.
@@ -87,7 +89,8 @@ public class VentanaCalendarAdmin extends JDialog {
 		contentPanel.add(getLblDescripcion());
 		contentPanel.add(getLblHora());
 		contentPanel.add(getLbHora());
-		contentPanel.add(getBtnHora());
+		contentPanel.add(getBtnLlegada());
+		contentPanel.add(getBtnSalida());
 	}
 
 	private JDateChooser getDateChooser() {
@@ -116,24 +119,55 @@ public class VentanaCalendarAdmin extends JDialog {
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
-			table.setBounds(175, 11, 248, 384);
+			table.setBounds(175, 11, 288, 384);
 
 			DataTableModel dm = new DataTableModel(
-					new Object[][] { { "00:00", null }, { "01:00", null }, { "02:00", null }, { "03:00", null },
+					new Object[][] { { "00:00", null }, { "01:00", null}, { "02:00", null }, { "03:00", null },
 							{ "04:00", null }, { "05:00", null }, { "06:00", null }, { "07:00", null },
 							{ "08:00", null }, { "09:00", null }, { "10:00", null }, { "11:00", null },
 							{ "12:00", null }, { "13:00", null }, { "14:00", null }, { "15:00", null },
 							{ "16:00", null }, { "17:00", null }, { "18:00", null }, { "19:00", null },
 							{ "20:00", null }, { "21:00", null }, { "22:00", null }, { "23:00", null }, },
 					new String[] { "Horas", "Disponibilidad" });
-			table.setModel(dm);
+			table.setModel(new DefaultTableModel(
+				new Object[][] {
+					{"00:00", null, null, null},
+					{"01:00", null, null, null},
+					{"02:00", null, null, null},
+					{"03:00", null, null, null},
+					{"04:00", null, null, null},
+					{"05:00", null, null, null},
+					{"06:00", null, null, null},
+					{"07:00", null, null, null},
+					{"08:00", null, null, null},
+					{"09:00", null, null, null},
+					{"10:00", null, null, null},
+					{"11:00", null, null, null},
+					{"12:00", null, null, null},
+					{"13:00", null, null, null},
+					{"14:00", null, null, null},
+					{"15:00", null, null, null},
+					{"16:00", null, null, null},
+					{"17:00", null, null, null},
+					{"18:00", null, null, null},
+					{"19:00", null, null, null},
+					{"20:00", null, null, null},
+					{"21:00", null, null, null},
+					{"22:00", null, null, null},
+					{"23:00", null, null, null},
+				},
+				new String[] {
+					"Horas", "Hora llegada", "Instalacion", "Hora salida"
+				}
+			));
 			
 			//Listener para tomar los valores de las filas de la tabla
 			table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 				@Override
 				public void valueChanged(ListSelectionEvent ev) {
-					//Pone en la descripcion el valor de la columna fila/columna
+					//Pone en la descripcion el valor de la fila/columna
 					txPDescripcion.setText((String) table.getModel().getValueAt(1,table.getSelectedColumn())+" "+table.getModel().getValueAt(table.getSelectedRow(), 1));
+					
 				}
 				
 				//No editable NO FUNCIONA DE MOMENTO
@@ -279,14 +313,14 @@ public class VentanaCalendarAdmin extends JDialog {
 	private JTextPane getTxPDescripcion() {
 		if (txPDescripcion == null) {
 			txPDescripcion = new JTextPane();
-			txPDescripcion.setBounds(453, 71, 338, 84);
+			txPDescripcion.setBounds(580, 70, 270, 84);
 		}
 		return txPDescripcion;
 	}
 	private JLabel getLblDescripcion() {
 		if (lblDescripcion == null) {
 			lblDescripcion = new JLabel("Descripcion:");
-			lblDescripcion.setBounds(453, 30, 130, 30);
+			lblDescripcion.setBounds(583, 29, 130, 30);
 		}
 		return lblDescripcion;
 	}
@@ -305,20 +339,54 @@ public class VentanaCalendarAdmin extends JDialog {
 		}
 		return lbHora;
 	}
-	private JButton getBtnHora() {
-		if (btnHora == null) {
-			btnHora = new JButton("Llegada/Salida");
-			btnHora.addActionListener(new ActionListener() {
+	private JButton getBtnLlegada() {
+		if (btnLlegada == null) {
+			btnLlegada = new JButton("Llegada");
+			btnLlegada.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String ID = JOptionPane.showInputDialog("Introduce tu ID de Admin:");
-					//If ID == ADmin en la bbdd
-					VentanaLlegadaS VLLS = new VentanaLlegadaS();
-					VLLS.setVisible(true);
-					//else mensaje de error
+					//Se saca la hora de la columna seleccionada
+					String string = (String) table.getModel().getValueAt(table.getSelectedRow(),0);
+					String[] Hora1 = string.split(":");
+					String Hora = Hora1[0];
+					//Set hora de llegada
+					table.setValueAt(LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute(), table.getSelectedRow(), 2);
+					//if(((int)table.getModel().getValueAt(1,table.getSelectedColumn())) == LocalDateTime.now().getHour()){
+					if(Hora == String.valueOf(LocalDateTime.now().getHour())){
+						JOptionPane.showMessageDialog(null, "Llegada a las:"+ LocalDateTime.now().getHour());
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Error");
+					}
+					
 				}
 			});
-			btnHora.setBounds(453, 177, 156, 23);
+			btnLlegada.setBounds(590, 180, 89, 23);
 		}
-		return btnHora;
+		return btnLlegada;
+	}
+	private JButton getBtnSalida() {
+		if (btnSalida == null) {
+			btnSalida = new JButton("Salida");
+			btnSalida.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					//Se saca la hora de la columna seleccionada
+					String string = (String) table.getModel().getValueAt(table.getSelectedRow(),0);
+					String[] Hora1 = string.split(":");
+					String Hora = Hora1[0];
+					//Set hora de salida
+					table.setValueAt(LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute(), table.getSelectedRow(), 3);
+					//if(((int)table.getModel().getValueAt(1,table.getSelectedColumn())) == LocalDateTime.now().getHour()){
+					if(Hora == String.valueOf(LocalDateTime.now().getHour())){
+						JOptionPane.showMessageDialog(null, "Salida las:"+ LocalDateTime.now().getHour());
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Error");
+					}
+					
+				}
+			});
+			btnSalida.setBounds(772, 180, 89, 23);
+		}
+		return btnSalida;
 	}
 }
