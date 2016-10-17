@@ -14,10 +14,18 @@ public class Reserva {
 	private boolean admin=false;
 	// Socio
 	private Socio socio;
+	public Socio getSocio() {
+		return socio;
+	}
+
 	// Precio
 	float precio;
 	// Instalacion que se reserva
 	Instalacion instalacion;
+
+	public Instalacion getInstalacion() {
+		return instalacion;
+	}
 
 	/**
 	 * Constructor dela clase Reserva

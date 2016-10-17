@@ -1,6 +1,8 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Data {
 	// ID = piscina
@@ -14,7 +16,8 @@ public class Data {
 
 	Socio socio1 = new Socio("admin");
 	Socio pepe = new Socio("pepe");
-
+	
+	List<Reserva> reservas = new ArrayList<Reserva>();
 
 	public void meterDatos() {
 		Reserva pisc1 = new Reserva(11, new Date(2016, 10, 11, 16, 0), new Date(2016, 10, 11, 17, 0), socio1, 15, piscina);
@@ -26,6 +29,7 @@ public class Data {
 		piscina.addReserva(pisc2);
 		piscina.addReserva(pisc3);
 		piscina.addReserva(pisc4);
+		
 
 		Reserva tenis1 = new Reserva(11, new Date(2016, 10, 11, 20, 0), new Date(2016, 10, 11, 21, 0), socio1, 15, canchatenis);
 		Reserva tenis2 = new Reserva(13, new Date(2016, 10, 13, 20, 0), new Date(2016, 10, 13, 21, 0), socio1, 15, canchatenis);
@@ -46,6 +50,14 @@ public class Data {
 		canchafutbol.addReserva(futbol2);
 		canchafutbol.addReserva(futbol3);
 		canchafutbol.addReserva(futbol4);
+		
+		reservas.addAll(piscina.getReservas());
+		reservas.addAll(canchatenis.getReservas());
+		reservas.addAll(canchafutbol.getReservas());
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
 	}
 
 	public Instalacion getPiscina() {

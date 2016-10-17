@@ -37,4 +37,15 @@ public class Socio {
 		this.cuota = cuota;
 	}
 	
+	public void pagarRecibo(Recibo r)
+	{
+		for(Recibo each: recibos)
+		{
+			if(r.equals(each))
+			{
+				recibos.remove(r);
+			}
+		}
+	}
+	
 }
