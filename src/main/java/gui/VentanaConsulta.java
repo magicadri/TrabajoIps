@@ -72,7 +72,7 @@ public class VentanaConsulta extends JDialog {
 		{
 			for(Reserva each: data.getReservas())
 			{
-				if(each.getHoraComienzo().before(new Date()))
+				if(each.getHoraComienzo().after(new Date()))
 					if (each.getSocio().getSocioID().equals(socio))
 						md.addRow(new Object[] {each.getInstalacion()+" "+ each.getHoraComienzo()+ " -" + each.getHoraFinal()});
 			}

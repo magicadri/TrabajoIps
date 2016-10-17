@@ -120,7 +120,7 @@ public class VentanaReservaA extends JDialog {
 
 	private JLabel getLblIdDeSocio() {
 		if (lblIdDeSocio == null) {
-			lblIdDeSocio = new JLabel("ID de socio:");
+			lblIdDeSocio = new JLabel("ID de admin:");
 			lblIdDeSocio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			lblIdDeSocio.setBounds(63, 102, 142, 42);
 		}
@@ -227,6 +227,7 @@ public class VentanaReservaA extends JDialog {
 		}
 		return chckbxCanchaDeTenis;
 	}
+	
 
 	/**
 	 * Crea una nueva reserva cuando el usuario pulsa OK
@@ -240,12 +241,16 @@ public class VentanaReservaA extends JDialog {
 		if (getChckbxCanchaDeFutbol().isSelected()) {
 			Reserva newResFut = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
 					new Socio(getTxIDdeSocio().getText()), preciofutbol, new Instalacion("canchafutbol"));
+			data.getFutbol().addReserva(newResFut);
+			
 		} else if (getChckbxCanchaDeTenis().isSelected()) {
 			Reserva newResTen = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
 					new Socio(getTxIDdeSocio().getText()), preciotenis, new Instalacion("canchatenis"));
+			data.getTenis().addReserva(newResTen);
 		} else if (getChckbxPiscina().isSelected()) {
 			Reserva newResPis = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
 					new Socio(getTxIDdeSocio().getText()), preciopiscina, new Instalacion("piscina"));
+			data.getPiscina().addReserva(newResPis);
 		}
 	}
 	

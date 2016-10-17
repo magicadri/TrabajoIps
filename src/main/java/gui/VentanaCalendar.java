@@ -131,7 +131,7 @@ public class VentanaCalendar extends JDialog {
 				@Override
 				public void valueChanged(ListSelectionEvent ev) {
 					//Pone en la descripcion el valor de la columna fila/columna
-					txPDescripcion.setText((String) table.getModel().getValueAt(1,table.getSelectedColumn())+" "+table.getModel().getValueAt(table.getSelectedRow(), 1));
+					txPDescripcion.setText((String) table.getModel().getValueAt(table.getSelectedRow(),0)+" "+table.getModel().getValueAt(table.getSelectedRow(), 1));
 				}
 				
 				//No editable NO FUNCIONA DE MOMENTO
@@ -173,6 +173,7 @@ public class VentanaCalendar extends JDialog {
 	 */
 	private void limpiarTabla() {
 		for (int i = 0; i < table.getRowCount(); i++) {
+					table.clearSelection();
 					table.setValueAt("", i, 1);
 		}
 	}
@@ -198,6 +199,7 @@ public class VentanaCalendar extends JDialog {
 		ArrayList<Reserva> reservas = ins.getReservas();
 		TableColumn tcol;
 		ColorCellRenderer ccr = new ColorCellRenderer();
+		ColorCellGreen ccg = new ColorCellGreen();
 
 		for (Reserva reserva : reservas) {
 
@@ -209,19 +211,28 @@ public class VentanaCalendar extends JDialog {
 
 					table.setValueAt("Reserva Piscina", reserva.getHoraComienzo().getHours(), 1);
 					tcol = table.getColumnModel().getColumn(1);
-					tcol.setCellRenderer(ccr);
+					if(reserva.getSocio().getSocioID().equals("admin"))
+						tcol.setCellRenderer(ccr);
+					else 
+						tcol.setCellRenderer(ccg);
 
 				} else if (ins.getId() == "canchafutbol") { // Futbol
 
 					table.setValueAt("Reserva Futbol", reserva.getHoraComienzo().getHours(), 1);
 					tcol = table.getColumnModel().getColumn(1);
-					tcol.setCellRenderer(ccr);
+					if(reserva.getSocio().getSocioID().equals("admin"))
+						tcol.setCellRenderer(ccr);
+					else 
+						tcol.setCellRenderer(ccg);
 
 				} else if (ins.getId() == "canchatenis") { // Tenis
 
 					table.setValueAt("Reserva Tenis", reserva.getHoraComienzo().getHours(), 1);
 					tcol = table.getColumnModel().getColumn(1);
-					tcol.setCellRenderer(ccr);
+					if(reserva.getSocio().getSocioID().equals("admin"))
+						tcol.setCellRenderer(ccr);
+					else 
+						tcol.setCellRenderer(ccg);
 
 				}
 			}

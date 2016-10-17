@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -17,10 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.awt.event.ActionEvent;
+
 import javax.swing.DefaultComboBoxModel;
 
 public class VentanaReservaS extends JDialog {
@@ -96,6 +99,11 @@ public class VentanaReservaS extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				cancelButton.setBounds(902, 13, 116, 55);
 				cancelButton.setActionCommand("Cancel");
@@ -240,12 +248,16 @@ public class VentanaReservaS extends JDialog {
 		if (getChckbxCanchaDeFutbol().isSelected()) {
 			Reserva newResFut = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
 					new Socio(getTxIDdeSocio().getText()), preciofutbol, new Instalacion("canchafutbol"));
+			data.getFutbol().addReserva(newResFut);
+			
 		} else if (getChckbxCanchaDeTenis().isSelected()) {
 			Reserva newResTen = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
 					new Socio(getTxIDdeSocio().getText()), preciotenis, new Instalacion("canchatenis"));
+			data.getTenis().addReserva(newResTen);
 		} else if (getChckbxPiscina().isSelected()) {
 			Reserva newResPis = new Reserva(Integer.valueOf(getSpDia().getValue().toString()), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())), new Date(2016,10,Integer.valueOf(getSpDia().getValue().toString())),
 					new Socio(getTxIDdeSocio().getText()), preciopiscina, new Instalacion("piscina"));
+			data.getPiscina().addReserva(newResPis);
 		}
 	}
 	

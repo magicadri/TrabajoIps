@@ -17,7 +17,6 @@ import java.awt.event.ActionEvent;
 public class VentanaSocio extends JFrame {
 
 	private JPanel contentPane;
-	private JLabel lblBienvenido;
 	private JLabel lblOpciones;
 	private JButton btnCalendar;
 	private JButton btnReserva;
@@ -55,11 +54,6 @@ public class VentanaSocio extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		GridBagConstraints gbc_lblBienvenido = new GridBagConstraints();
-		gbc_lblBienvenido.insets = new Insets(0, 0, 5, 0);
-		gbc_lblBienvenido.gridx = 2;
-		gbc_lblBienvenido.gridy = 0;
-		contentPane.add(getLblBienvenido(), gbc_lblBienvenido);
 		GridBagConstraints gbc_lblOpciones = new GridBagConstraints();
 		gbc_lblOpciones.insets = new Insets(0, 0, 5, 5);
 		gbc_lblOpciones.gridx = 1;
@@ -84,13 +78,6 @@ public class VentanaSocio extends JFrame {
 		gbc_btnCancelarReserva.gridx = 2;
 		gbc_btnCancelarReserva.gridy = 9;
 		contentPane.add(getBtnCancelarReserva(), gbc_btnCancelarReserva);
-	}
-
-	private JLabel getLblBienvenido() {
-		if (lblBienvenido == null) {
-			lblBienvenido = new JLabel("Bienvenido al club deportivo X");
-		}
-		return lblBienvenido;
 	}
 	private JLabel getLblOpciones() {
 		if (lblOpciones == null) {

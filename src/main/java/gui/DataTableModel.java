@@ -13,5 +13,11 @@ public class DataTableModel extends DefaultTableModel{
 	{
 		return (String) this.getValueAt(rownum, 1);
 	}
+	
+	@Override
+	public boolean isCellEditable(int row, int col)
+	{
+		return false;
+	}
 
 }

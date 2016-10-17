@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
 //import com.toedter.calendar.JCalendar;
 //import com.toedter.calendar.JMonthChooser;
 
@@ -53,15 +55,21 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel getPanelEscoger() {
 		if (panelEscoger == null) {
 			panelEscoger = new JPanel();
-			panelEscoger.setLayout(new GridLayout(1, 0, 0, 0));
+			panelEscoger.setLayout(null);
 			panelEscoger.add(getBtnSocio());
 			panelEscoger.add(getBtnAdmin());
+			
+			JLabel lblBienvenidoAlClub = new JLabel("Bienvenido/a al club deportivo X");
+			lblBienvenidoAlClub.setFont(new Font("Tahoma", Font.BOLD, 24));
+			lblBienvenidoAlClub.setBounds(151, 59, 452, 48);
+			panelEscoger.add(lblBienvenidoAlClub);
 		}
 		return panelEscoger;
 	}
 	private JButton getBtnSocio() {
 		if (btnSocio == null) {
 			btnSocio = new JButton("Socio");
+			btnSocio.setBounds(26, 168, 329, 138);
 			btnSocio.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					VentanaSocio vs = new VentanaSocio();
@@ -74,6 +82,7 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtnAdmin() {
 		if (btnAdmin == null) {
 			btnAdmin = new JButton("Admin");
+			btnAdmin.setBounds(397, 168, 308, 138);
 			btnAdmin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					VentanaAdmin va = new VentanaAdmin();
