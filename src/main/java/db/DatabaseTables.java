@@ -34,7 +34,7 @@ public class DatabaseTables {
 		StringBuilder query = new StringBuilder();
 		
 		query.append("CREATE TABLE Socio");
-		query.append("( socioID char(5),");
+		query.append("( socioID char(10),");
 		query.append("  cuota int");
 		query.append(") ");
 		
@@ -55,7 +55,7 @@ public class DatabaseTables {
 		StringBuilder query = new StringBuilder();
 		
 		query.append("CREATE TABLE Admin");
-		query.append("( adminID char(5),");
+		query.append("( adminID char(10),");
 		query.append(") ");
 		
 		ResultSet rs = st.executeQuery(query.toString());
@@ -75,7 +75,7 @@ public class DatabaseTables {
 		StringBuilder query = new StringBuilder();
 		
 		query.append("CREATE TABLE Instalacion");
-		query.append("( instalacionID char(5),");
+		query.append("( instalacionID char(10),");
 		query.append("  precio float");
 		query.append(") ");
 		
@@ -96,9 +96,9 @@ public class DatabaseTables {
 		StringBuilder query = new StringBuilder();
 		
 		query.append("CREATE TABLE Reserva");
-		query.append("( socioID char(5),");
-		query.append("  adminID char(5),");
-		query.append("  instalacionID char(5),");
+		query.append("( socioID char(10),");
+		query.append("  adminID char(10),");
+		query.append("  instalacionID char(10),");
 		query.append("  horaComienzo int,");
 		query.append("  horaFinal int,");
 		query.append("  fecha date");
@@ -121,9 +121,9 @@ public class DatabaseTables {
 		StringBuilder query = new StringBuilder();
 		
 		query.append("CREATE TABLE Recibo");
-		query.append("( socioID char(5),");
-		query.append("( adminID char(5),");
-		query.append("( instalacionID char(5),");
+		query.append("( socioID char(10),");
+		query.append("( adminID char(10),");
+		query.append("( instalacionID char(10),");
 		query.append("  pago float");
 		query.append(") ");
 		
