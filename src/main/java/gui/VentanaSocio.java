@@ -78,6 +78,7 @@ public class VentanaSocio extends JFrame {
 		gbc_btnCancelarReserva.gridx = 2;
 		gbc_btnCancelarReserva.gridy = 9;
 		contentPane.add(getBtnCancelarReserva(), gbc_btnCancelarReserva);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	private JLabel getLblOpciones() {
 		if (lblOpciones == null) {

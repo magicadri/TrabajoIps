@@ -65,6 +65,7 @@ public class VentanaAdmin extends JFrame {
 		gbc_btnReserva.gridx = 2;
 		gbc_btnReserva.gridy = 5;
 		contentPane.add(getBtnReserva(), gbc_btnReserva);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	private JLabel getLblOpciones() {
 		if (lblOpciones == null) {
