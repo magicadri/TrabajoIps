@@ -15,24 +15,24 @@ import logic.Socio2;
 
 public class Parser {
 	
-	List<Socio2> socios = new ArrayList<Socio2>();
-	List<Instalacion2> instalaciones = new ArrayList<Instalacion2>();
-	List<Reserva2> reservas = new ArrayList<Reserva2>();
-	List<Recibo2> recibos = new ArrayList<Recibo2>();
-	List<Actividad2> actividades = new ArrayList<Actividad2>();
+	List<Socio2> socios = new ArrayList<>();
+	List<Instalacion2> instalaciones = new ArrayList<>();
+	List<Reserva2> reservas = new ArrayList<>();
+	List<Recibo2> recibos = new ArrayList<>();
+	List<Actividad2> actividades = new ArrayList<>();
 	Connection c = Database.getInstance().getC();
 	
 	public void fillArrays() throws SQLException
 	{
 		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery("Select * From SOCIO");
+		ResultSet rs = s.executeQuery("select * from SOCIO");
 		while(rs.next())
 		{
 			socios.add(new Socio2(rs.getString("socioID")));
 		}
 		
 		s = c.createStatement();
-		rs = s.executeQuery("Select * From INSTALACION");
+		rs = s.executeQuery("select * from INSTALACION");
 		while(rs.next())
 		{
 			instalaciones.add(new Instalacion2(rs.getString("instalacionID")));
@@ -42,19 +42,13 @@ public class Parser {
 		rs = s.executeQuery("Select * From RESERVA");
 		while(rs.next())
 		{
-			reservas.add(new Reserva2(rs.getInt("reservaID"), rs.getString("socioID"), rs.getInt("instalacionID"), 
+			reservas.add(new Reserva2(rs.getString("socioID"), rs.getInt("instalacionID"),
 					rs.getTimestamp("horaComienzo"), rs.getTimestamp("horaFinal"),
 					rs.getTimestamp("horaEntrada"), rs.getTimestamp("horaSalida"), 
-					rs.getString("modoPago"), rs.getInt("precio")));
+					rs.getString("modoPago"), rs.getBoolean("pagado"), rs.getInt("precio")));
 		}
 		
-		s = c.createStatement();
-		rs = s.executeQuery("Select * From RECIBO");
-		while(rs.next())
-		{
-			recibos.add(new Recibo2(rs.getInt("reciboID"), rs.getString("socioID"), rs.getInt("reservaID"), 
-					rs.getInt("instalacionID"), rs.getInt("importe")));
-		}
+		// TODO cuota y entrada_cuota
 		
 		s = c.createStatement();
 		rs = s.executeQuery("Select * From ACTIVIDAD");

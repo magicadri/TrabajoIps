@@ -35,3 +35,5 @@ gradle-app.setting
 .project
 .settings/
 
+gradle.properties
+

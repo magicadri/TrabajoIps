@@ -28,15 +28,15 @@ public class Database {
         Properties connectionProps = new Properties();
         connectionProps.put("user", "SA");
         try {
-            c = DriverManager.getConnection("jdbc:h2:~/test", connectionProps);
+            c = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", connectionProps);
             
             // Crear las tablas
             dt = new DatabaseTables(c);
-            dt.crearTablas();
+            //dt.crearTablas();
             
             // add de algunos datos para probar funcionalidades
             dd = new Defaultdata(c);
-            dd.addData();
+            //dd.addData();
             
             
         } catch (SQLException e) {

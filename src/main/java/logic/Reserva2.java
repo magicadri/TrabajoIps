@@ -13,11 +13,11 @@ public class Reserva2 {
 	private Timestamp horaSalida;
 	private String modoPago;
 	private int precio;
-	private int reservaID;
+	private boolean pagado;
 
-	public Reserva2(int reservaID, String socioID, int instalacionID, Timestamp horaComienzo, Timestamp horaFinal,
-			Timestamp horaEntrada, Timestamp horaSalida, String modoPago, int precio) {
-		this.reservaID=reservaID;
+	public Reserva2(String socioID, int instalacionID, Timestamp horaComienzo, Timestamp horaFinal,
+			Timestamp horaEntrada, Timestamp horaSalida, String modoPago, boolean pagado, int precio) {
+		this.pagado = pagado;
 		this.socioID=socioID;
 		this.instalacionID=instalacionID;
 		this.horaComienzo=horaComienzo;
@@ -27,10 +27,6 @@ public class Reserva2 {
 		this.modoPago=modoPago;
 		this.precio=precio;
 
-	}
-
-	public int getReservaID() {
-		return reservaID;
 	}
 
 	public String getSocioID() {

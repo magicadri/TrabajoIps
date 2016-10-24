@@ -39,9 +39,8 @@ public class DatabaseTables {
 		query.append("  cuota int");
 		query.append(") ");
 		
-		ResultSet rs = st.executeQuery(query.toString());
+		st.execute(query.toString());
 		
-		rs.close();
 		st.close();
 		
 		System.out.println("Tabla de socios creada.");
@@ -59,9 +58,8 @@ public class DatabaseTables {
 		query.append("( adminID char(10),");
 		query.append(") ");
 		
-		ResultSet rs = st.executeQuery(query.toString());
+		st.execute(query.toString());
 		
-		rs.close();
 		st.close();
 		
 		System.out.println("Tabla de administradores creada.");
@@ -79,10 +77,9 @@ public class DatabaseTables {
 		query.append("( instalacionID char(10),");
 		query.append("  precio float");
 		query.append(") ");
+
+		st.execute(query.toString());
 		
-		ResultSet rs = st.executeQuery(query.toString());
-		
-		rs.close();
 		st.close();
 		
 		System.out.println("Tabla de instalaciones creada.");
@@ -104,10 +101,9 @@ public class DatabaseTables {
 		query.append("  horaFinal int,");
 		query.append("  fecha date");
 		query.append(") ");
+
+		st.execute(query.toString());
 		
-		ResultSet rs = st.executeQuery(query.toString());
-		
-		rs.close();
 		st.close();
 		
 		System.out.println("Tabla de reservas creada.");
@@ -127,10 +123,9 @@ public class DatabaseTables {
 		query.append("( instalacionID char(10),");
 		query.append("  pago float");
 		query.append(") ");
+
+		st.execute(query.toString());
 		
-		ResultSet rs = st.executeQuery(query.toString());
-		
-		rs.close();
 		st.close();
 		
 		System.out.println("Tabla de recibos creada.");
