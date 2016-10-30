@@ -20,6 +20,7 @@ public class VentanaAdmin extends JFrame {
 	private JLabel lblOpciones;
 	private JButton btnCalendar;
 	private JButton btnReserva;
+	private JButton button;
 	/**
 	 * Launch the application.
 	 */
@@ -47,9 +48,9 @@ public class VentanaAdmin extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		GridBagConstraints gbc_lblOpciones = new GridBagConstraints();
 		gbc_lblOpciones.insets = new Insets(0, 0, 5, 5);
@@ -62,9 +63,15 @@ public class VentanaAdmin extends JFrame {
 		gbc_btnCalendar.gridy = 3;
 		contentPane.add(getBtnCalendar(), gbc_btnCalendar);
 		GridBagConstraints gbc_btnReserva = new GridBagConstraints();
+		gbc_btnReserva.insets = new Insets(0, 0, 5, 0);
 		gbc_btnReserva.gridx = 2;
-		gbc_btnReserva.gridy = 5;
+		gbc_btnReserva.gridy = 4;
 		contentPane.add(getBtnReserva(), gbc_btnReserva);
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(0, 0, 5, 0);
+		gbc_button.gridx = 2;
+		gbc_button.gridy = 6;
+		contentPane.add(getButton(), gbc_button);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	private JLabel getLblOpciones() {
@@ -100,4 +107,17 @@ public class VentanaAdmin extends JFrame {
 		return btnReserva;
 	}
 
+	private JButton getButton() {
+		if (button == null) {
+			button = new JButton("Cancelar reserva");
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					//OJO misma ventana que para socio de momento
+					VentanaCancelarReserva vcr = new VentanaCancelarReserva();
+					vcr.setVisible(true);
+				}
+			});
+		}
+		return button;
+	}
 }

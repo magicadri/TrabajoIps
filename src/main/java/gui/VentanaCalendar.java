@@ -29,14 +29,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.beans.PropertyChangeEvent;
+
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.JCheckBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextPane;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class VentanaCalendar extends JDialog {
 
@@ -44,14 +50,13 @@ public class VentanaCalendar extends JDialog {
 	private JDateChooser dateChooser;
 	private JTextField tf;
 	private JTable table;
-	private JCheckBox chbPiscina;
 	Data data = new Data();
-	private JCheckBox chbTenis;
-	private JCheckBox chbFutbol;
 	private JTextPane txPDescripcion;
 	private JLabel lblDescripcion;
 	private JLabel lblHora;
 	private JLabel lbHora;
+	private JComboBox comboBox;
+	private JButton btnMisReservas;
 
 	/**
 	 * Launch the application.
@@ -77,15 +82,14 @@ public class VentanaCalendar extends JDialog {
 		contentPanel.setLayout(null);
 		contentPanel.add(getDateChooser());
 		contentPanel.add(getTable());
-		contentPanel.add(getChbPiscina());
-		contentPanel.add(getChbTenis());
-		contentPanel.add(getChbFutbol());
 		// Pone el dia actual en el dateChooser
 		dateChooser.setDate((new Date()));
 		contentPanel.add(getTxPDescripcion());
 		contentPanel.add(getLblDescripcion());
 		contentPanel.add(getLblHora());
 		contentPanel.add(getLbHora());
+		contentPanel.add(getComboBox());
+		contentPanel.add(getBtnMisReservas());
 	}
 
 	private JDateChooser getDateChooser() {
@@ -94,16 +98,6 @@ public class VentanaCalendar extends JDialog {
 			dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
 					limpiarTabla();
-					// Actualizar el horario para cada dia cambiado
-					if (chbPiscina.isSelected()) {
-						llenarTabla(data.getPiscina());
-					}
-					if (chbTenis.isSelected()) {
-						llenarTabla(data.getTenis());
-					}
-					if (chbFutbol.isSelected()) {
-						llenarTabla(data.getFutbol());
-					}
 				}
 			});
 			dateChooser.setBounds(44, 30, 95, 20);
@@ -114,16 +108,16 @@ public class VentanaCalendar extends JDialog {
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
-			table.setBounds(175, 11, 248, 384);
+			table.setBounds(175, 11, 375, 384);
 
 			DataTableModel dm = new DataTableModel(
-					new Object[][] { { "00:00", null }, { "01:00", null }, { "02:00", null }, { "03:00", null },
-							{ "04:00", null }, { "05:00", null }, { "06:00", null }, { "07:00", null },
-							{ "08:00", null }, { "09:00", null }, { "10:00", null }, { "11:00", null },
-							{ "12:00", null }, { "13:00", null }, { "14:00", null }, { "15:00", null },
-							{ "16:00", null }, { "17:00", null }, { "18:00", null }, { "19:00", null },
-							{ "20:00", null }, { "21:00", null }, { "22:00", null }, { "23:00", null }, },
-					new String[] { "Horas", "Disponibilidad" });
+					new Object[][] { { "00:00", null, null, null }, { "01:00", null, null, null }, { "02:00", null, null, null }, { "03:00", null, null, null },
+							{ "04:00", null, null, null }, { "05:00", null, null, null }, { "06:00", null, null, null }, { "07:00", null, null, null },
+							{ "08:00", null, null, null }, { "09:00", null, null, null }, { "10:00", null, null, null }, { "11:00", null, null, null },
+							{ "12:00", null, null, null }, { "13:00", null, null, null }, { "14:00", null, null, null }, { "15:00", null, null, null },
+							{ "16:00", null, null, null }, { "17:00", null, null, null }, { "18:00", null, null, null }, { "19:00", null, null, null },
+							{ "20:00", null, null, null }, { "21:00", null, null, null}, { "22:00", null, null, null }, { "23:00", null, null, null }, },
+					new String[] { "Horas", "Disponibilidad", "Llegada", "Salida" });
 			table.setModel(dm);
 			
 			//Listener para tomar los valores de las filas de la tabla
@@ -143,29 +137,6 @@ public class VentanaCalendar extends JDialog {
 			data.meterDatos();
 		}
 		return table;
-	}
-
-	/**
-	 * CheckBox para la instalacion piscina
-	 * 
-	 * @return
-	 */
-	private JCheckBox getChbPiscina() {
-		if (chbPiscina == null) {
-			chbPiscina = new JCheckBox("Piscina");
-			chbPiscina.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					if (chbPiscina.isSelected()) {
-						if (dateChooser.getDate() != null)
-							llenarTabla(data.getPiscina());
-					} else {
-						limpiarReserva("Reserva Piscina");
-					}
-				}
-			});
-			chbPiscina.setBounds(29, 154, 97, 23);
-		}
-		return chbPiscina;
 	}
 
 	/**
@@ -249,53 +220,17 @@ public class VentanaCalendar extends JDialog {
 		String[] var = date.toString().split(" ");
 		return var[2];
 	}
-
-	private JCheckBox getChbTenis() {
-		if (chbTenis == null) {
-			chbTenis = new JCheckBox("Cancha de tenis");
-			chbTenis.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					if (chbTenis.isSelected()) {
-						if (dateChooser.getDate() != null)
-							llenarTabla(data.getTenis());
-					} else {
-						limpiarReserva("Reserva Tenis");
-					}
-				}
-			});
-			chbTenis.setBounds(29, 194, 123, 23);
-		}
-		return chbTenis;
-	}
-
-	private JCheckBox getChbFutbol() {
-		if (chbFutbol == null) {
-			chbFutbol = new JCheckBox("Cancha de futbol");
-			chbFutbol.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (chbFutbol.isSelected()) {
-						if (dateChooser.getDate() != null)
-							llenarTabla(data.getFutbol());
-					} else {
-						limpiarReserva("Reserva Futbol");
-					}
-				}
-			});
-			chbFutbol.setBounds(29, 231, 123, 23);
-		}
-		return chbFutbol;
-	}
 	private JTextPane getTxPDescripcion() {
 		if (txPDescripcion == null) {
 			txPDescripcion = new JTextPane();
-			txPDescripcion.setBounds(453, 71, 338, 84);
+			txPDescripcion.setBounds(580, 70, 270, 84);
 		}
 		return txPDescripcion;
 	}
 	private JLabel getLblDescripcion() {
 		if (lblDescripcion == null) {
 			lblDescripcion = new JLabel("Descripcion:");
-			lblDescripcion.setBounds(453, 30, 130, 30);
+			lblDescripcion.setBounds(583, 29, 130, 30);
 		}
 		return lblDescripcion;
 	}
@@ -313,5 +248,56 @@ public class VentanaCalendar extends JDialog {
 			lbHora.setText(String.valueOf(LocalDateTime.now().getHour())+":"+String.valueOf(LocalDateTime.now().getMinute()));
 		}
 		return lbHora;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JComboBox cb = (JComboBox)e.getSource();
+					Object selected = cb.getSelectedItem();
+					if(selected.toString().equals("Piscina")){
+						limpiarReserva("Reserva Tenis");
+						limpiarReserva("Reserva Futbol");
+						
+							if (dateChooser.getDate() != null)
+								llenarTabla(data.getPiscina());
+						}
+					else if(selected.toString().equals("Cancha de tenis")){
+						limpiarReserva("Reserva Piscina");
+						limpiarReserva("Reserva Futbol");
+						if (dateChooser.getDate() != null)
+							llenarTabla(data.getTenis());
+					}
+					else if(selected.toString().equals("Cancha de futbol")){
+						limpiarReserva("Reserva Piscina");
+						limpiarReserva("Reserva Tenis");
+						if (dateChooser.getDate() != null)
+							llenarTabla(data.getFutbol());
+					}
+					
+					
+					else {
+							limpiarReserva("Reserva Piscina");
+						}
+					}
+			});
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Piscina", "Cancha de tenis", "Cancha de futbol"}));
+			comboBox.setBounds(29, 140, 110, 20);
+		}
+		return comboBox;
+	}
+	private JButton getBtnMisReservas() {
+		if (btnMisReservas == null) {
+			btnMisReservas = new JButton("Mis reservas");
+			btnMisReservas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VentanaMisReservas MR = new VentanaMisReservas();
+					MR.setVisible(true);
+				}
+			});
+			btnMisReservas.setBounds(32, 221, 89, 23);
+		}
+		return btnMisReservas;
 	}
 }

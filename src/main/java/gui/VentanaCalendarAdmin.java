@@ -41,6 +41,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextPane;
 import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class VentanaCalendarAdmin extends JDialog {
 
@@ -48,16 +50,14 @@ public class VentanaCalendarAdmin extends JDialog {
 	private JDateChooser dateChooser;
 	private JTextField tf;
 	private JTable table;
-	private JCheckBox chbPiscina;
 	Data data = new Data();
-	private JCheckBox chbTenis;
-	private JCheckBox chbFutbol;
 	private JTextPane txPDescripcion;
 	private JLabel lblDescripcion;
 	private JLabel lblHora;
 	private JLabel lbHora;
 	private JButton btnLlegada;
 	private JButton btnSalida;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -83,9 +83,6 @@ public class VentanaCalendarAdmin extends JDialog {
 		contentPanel.setLayout(null);
 		contentPanel.add(getDateChooser());
 		contentPanel.add(getTable());
-		contentPanel.add(getChbPiscina());
-		contentPanel.add(getChbTenis());
-		contentPanel.add(getChbFutbol());
 		// Pone el dia actual en el dateChooser
 		dateChooser.setDate((new Date()));
 		contentPanel.add(getTxPDescripcion());
@@ -94,6 +91,7 @@ public class VentanaCalendarAdmin extends JDialog {
 		contentPanel.add(getLbHora());
 		contentPanel.add(getBtnLlegada());
 		contentPanel.add(getBtnSalida());
+		contentPanel.add(getComboBox());
 	}
 
 	private JDateChooser getDateChooser() {
@@ -102,16 +100,6 @@ public class VentanaCalendarAdmin extends JDialog {
 			dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
 					limpiarTabla();
-					// Actualizar el horario para cada dia cambiado
-					if (chbPiscina.isSelected()) {
-						llenarTabla(data.getPiscina());
-					}
-					if (chbTenis.isSelected()) {
-						llenarTabla(data.getTenis());
-					}
-					if (chbFutbol.isSelected()) {
-						llenarTabla(data.getFutbol());
-					}
 				}
 			});
 			dateChooser.setBounds(44, 30, 95, 20);
@@ -151,29 +139,6 @@ public class VentanaCalendarAdmin extends JDialog {
 			data.meterDatos();
 		}
 		return table;
-	}
-
-	/**
-	 * CheckBox para la instalacion piscina
-	 * 
-	 * @return
-	 */
-	private JCheckBox getChbPiscina() {
-		if (chbPiscina == null) {
-			chbPiscina = new JCheckBox("Piscina");
-			chbPiscina.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					if (chbPiscina.isSelected()) {
-						if (dateChooser.getDate() != null)
-							llenarTabla(data.getPiscina());
-					} else {
-						limpiarReserva("Reserva Piscina");
-					}
-				}
-			});
-			chbPiscina.setBounds(29, 154, 97, 23);
-		}
-		return chbPiscina;
 	}
 
 	/**
@@ -257,42 +222,6 @@ public class VentanaCalendarAdmin extends JDialog {
 		String[] var = date.toString().split(" ");
 		return var[2];
 	}
-
-	private JCheckBox getChbTenis() {
-		if (chbTenis == null) {
-			chbTenis = new JCheckBox("Cancha de tenis");
-			chbTenis.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					if (chbTenis.isSelected()) {
-						if (dateChooser.getDate() != null)
-							llenarTabla(data.getTenis());
-					} else {
-						limpiarReserva("Reserva Tenis");
-					}
-				}
-			});
-			chbTenis.setBounds(29, 194, 123, 23);
-		}
-		return chbTenis;
-	}
-
-	private JCheckBox getChbFutbol() {
-		if (chbFutbol == null) {
-			chbFutbol = new JCheckBox("Cancha de futbol");
-			chbFutbol.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (chbFutbol.isSelected()) {
-						if (dateChooser.getDate() != null)
-							llenarTabla(data.getFutbol());
-					} else {
-						limpiarReserva("Reserva Futbol");
-					}
-				}
-			});
-			chbFutbol.setBounds(29, 231, 123, 23);
-		}
-		return chbFutbol;
-	}
 	private JTextPane getTxPDescripcion() {
 		if (txPDescripcion == null) {
 			txPDescripcion = new JTextPane();
@@ -331,7 +260,7 @@ public class VentanaCalendarAdmin extends JDialog {
 					String string = (String) table.getModel().getValueAt(table.getSelectedRow(),0);
 					String[] Hora1 = string.split(":");
 					String Hora = Hora1[0];
-					//Set hora de llegada
+					//Set hora de llegada que hay que cambiar al if, pero mientras tanto está de prueba
 					table.setValueAt(LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute(), table.getSelectedRow(), 2);
 					//if(((int)table.getModel().getValueAt(1,table.getSelectedColumn())) == LocalDateTime.now().getHour()){
 					if(Hora.equals(String.valueOf(LocalDateTime.now().getHour()))){
@@ -371,5 +300,43 @@ public class VentanaCalendarAdmin extends JDialog {
 			btnSalida.setBounds(772, 180, 89, 23);
 		}
 		return btnSalida;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JComboBox cb = (JComboBox)e.getSource();
+					Object selected = cb.getSelectedItem();
+					if(selected.toString().equals("Piscina")){
+						limpiarReserva("Reserva Tenis");
+						limpiarReserva("Reserva Futbol");
+						
+							if (dateChooser.getDate() != null)
+								llenarTabla(data.getPiscina());
+						}
+					else if(selected.toString().equals("Cancha de tenis")){
+						limpiarReserva("Reserva Piscina");
+						limpiarReserva("Reserva Futbol");
+						if (dateChooser.getDate() != null)
+							llenarTabla(data.getTenis());
+					}
+					else if(selected.toString().equals("Cancha de futbol")){
+						limpiarReserva("Reserva Piscina");
+						limpiarReserva("Reserva Tenis");
+						if (dateChooser.getDate() != null)
+							llenarTabla(data.getFutbol());
+					}
+					
+					
+					else {
+							limpiarReserva("Reserva Piscina");
+						}
+					}
+			});
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Piscina", "Cancha de tenis", "Cancha de futbol"}));
+			comboBox.setBounds(29, 140, 110, 20);
+		}
+		return comboBox;
 	}
 }
